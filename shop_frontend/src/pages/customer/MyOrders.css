@@ -1,0 +1,123 @@
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.order-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.order-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.order-id {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  display: block;
+}
+.order-date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 2px;
+}
+.order-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.order-total {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* ---- Progress bar ---- */
+.order-progress {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  margin-bottom: 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+.order-progress.cancelled {
+  font-size: 0.83rem;
+  color: var(--red);
+  font-weight: 600;
+  justify-content: center;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  flex: 1;
+  min-width: 64px;
+  position: relative;
+  gap: 6px;
+  text-align: center;
+}
+.progress-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--border);
+  border: 2px solid var(--bg-card);
+  outline: 2px solid var(--border);
+  transition: background 0.2s;
+  z-index: 1;
+}
+.progress-line {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  right: -50%;
+  height: 2px;
+  background: var(--border);
+  z-index: 0;
+}
+.progress-step.done .progress-dot {
+  background: var(--green);
+  outline-color: var(--green-soft);
+}
+.progress-step.done .progress-line { background: var(--green); }
+.progress-step.done { color: var(--green); }
+.progress-step.current .progress-dot {
+  background: var(--accent);
+  outline-color: var(--accent-soft);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.progress-step.current { color: var(--accent); font-weight: 700; }
+
+/* ---- Items ---- */
+.order-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.order-line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  padding: 3px 0;
+}

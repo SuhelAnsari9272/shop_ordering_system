@@ -1,0 +1,84 @@
+.add-product-card { margin-bottom: 28px; }
+
+.add-product-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+.add-product-header h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+}
+.toggle-chevron { font-size: 0.75rem; color: var(--text-muted); }
+.add-product-card .form-group { margin-top: 16px; }
+
+.form-row-3 {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.form-row-3 .form-group { flex: 1; min-width: 140px; margin-bottom: 0; }
+
+/* ---- Product list ---- */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.section-header h2 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; }
+
+.product-list { padding: 0; overflow: hidden; }
+.product-list-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  padding: 12px 18px 8px;
+  background: var(--bg-muted);
+  border-bottom: 1px solid var(--border);
+}
+.inactive-label { color: var(--red); }
+
+.product-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  transition: background var(--transition);
+}
+.product-row:last-child { border-bottom: none; }
+.product-row:hover { background: var(--bg-muted); }
+.product-row--inactive { opacity: 0.6; }
+
+.product-row-info { flex: 1; min-width: 0; }
+.product-row-name { font-weight: 600; font-size: 0.95rem; display: block; }
+.product-row-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 380px;
+}
+
+.product-row-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.product-row-price {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 1rem;
+}

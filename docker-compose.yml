@@ -1,0 +1,85 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: shop_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: sqlite:////app/data/shop.db
+    volumes:
+      - shop_db_data:/app/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - shop_network
+
+  # ---- React frontend (replaces both Streamlit apps) ----
+  frontend:
+    build:
+      context: ./shop_frontend
+      dockerfile: Dockerfile
+      args:
+        # The browser makes API calls directly to the backend,
+        # so this must be the HOST-accessible URL (not the Docker service name).
+        VITE_API_BASE_URL: http://localhost:8000
+    container_name: shop_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - shop_network
+
+  # ---- Legacy Streamlit apps (kept for reference, disabled by default) ----
+  # To re-enable, uncomment these blocks.
+
+  # customer_app:
+  #   build:
+  #     context: ./customer_app
+  #     dockerfile: Dockerfile
+  #   container_name: shop_customer_app
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8501:8501"
+  #   environment:
+  #     API_BASE_URL: http://backend:8000
+  #   depends_on:
+  #     backend:
+  #       condition: service_healthy
+  #   networks:
+  #     - shop_network
+
+  # admin_app:
+  #   build:
+  #     context: ./admin_app
+  #     dockerfile: Dockerfile
+  #   container_name: shop_admin_app
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8502:8502"
+  #   environment:
+  #     API_BASE_URL: http://backend:8000
+  #   depends_on:
+  #     backend:
+  #       condition: service_healthy
+  #   networks:
+  #     - shop_network
+
+networks:
+  shop_network:
+    driver: bridge
+
+volumes:
+  shop_db_data:
+    driver: local
